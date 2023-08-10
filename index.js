@@ -9,16 +9,22 @@ const app = express();
 //configure cors
 app.use(cors());
 
+//Reead parser body
+app.use(express.json());
+
 //Database
 dbConnection();
 
 //Routes
-app.get("/", (req, res) => {
-  res.json({
-    ok: true,
-    msg: "Hello World",
-  });
-});
+app.use('/api/users', require('./routes/users'));
+app.use('/api/login', require('./routes/auth'));
+
+// app.get("/", (req, res) => {
+//   res.json({
+//     ok: true,
+//     msg: "Hello World",
+//   });
+// });
 
 app.listen(4000, () => {
   console.log("Server running at port 4000");
