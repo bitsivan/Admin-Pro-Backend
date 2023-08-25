@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const login = async (req, res = response) => {
   const { email, password } = req.body;
   try {
-    const _user = await User.findOne({ email });
+     const _user = await User.findOne({ email });
     if (!_user) {
       return res.status(404).json({
         ok: false,
