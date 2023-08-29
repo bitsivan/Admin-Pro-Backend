@@ -7,6 +7,7 @@ const { check } = require("express-validator");
 const { validateFields } = require('../middlewares/validate-fields');
 const { validateJWT } = require("../middlewares/validate-jwt");
 const { getHospitals, createHospital, updateHospital, deleteHospital } = require("../controllers/hospitals");
+const { validate } = require("uuid");
 
 const router = Router();
 
@@ -23,9 +24,13 @@ router.post(
 );
 
 router.put("/:id",
-    [],
+    [
+      validateJWT,
+      check('name', 'Te name of hospital is required.').not().isEmpty(),
+      validateFields
+    ],
     updateHospital);
 
-router.delete('/:id', deleteHospital);
+router.delete('/:id', validateJWT, deleteHospital);
 
 module.exports = router;
