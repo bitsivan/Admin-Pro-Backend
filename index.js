@@ -9,6 +9,9 @@ const app = express();
 //configure cors
 app.use(cors());
 
+//public folder
+app.use(express.static('public'));
+
 //Reead parser body
 app.use(express.json());
 
